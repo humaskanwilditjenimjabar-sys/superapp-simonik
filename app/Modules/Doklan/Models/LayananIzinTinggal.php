@@ -32,6 +32,9 @@ class LayananIzinTinggal extends Model
         'verified_by',
         'verified_at',
         'catatan_verifikasi',
+        'nama_sponsor',
+        'kontak_sponsor',
+        'alamat_sponsor',
     ];
 
     protected $casts = [

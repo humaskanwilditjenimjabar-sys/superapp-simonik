@@ -283,7 +283,6 @@
                                 @endif
                             </span>
                         </th>
-                        {{-- <th class="px-4 py-3 text-left text-xs font-bold text-white">Operator</th> --}}
                         <th class="px-4 py-3 text-center text-xs font-bold text-white">Status</th>
                         <th class="px-4 py-3 text-center text-xs font-bold text-white">Aksi</th>
                     </tr>
@@ -291,20 +290,20 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse($data as $i => $row)
                         <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="px-4 py-3.5 text-sm" style="color:#94A3B8;">{{ $data->firstItem() + $i }}</td>
-                            <td class="px-4 py-3.5 whitespace-nowrap">
+                            <td class="px-4 py-2.5 text-xs" style="color:#94A3B8;">{{ $data->firstItem() + $i }}</td>
+                            <td class="px-4 py-2.5 whitespace-nowrap">
                                 <span class="text-xs font-medium px-2.5 py-1 rounded-full"
                                     style="background:#F8FAFC;color:#475569;border:1px solid #E2E8F0;">
                                     {{ $row->tanggal->translatedFormat('d M Y') }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3.5">
-                                <p class="text-sm font-semibold" style="color:#1E293B;">
+                            <td class="px-4 py-2.5">
+                                <p class="text-xs font-semibold" style="color:#1E293B;">
                                     {{ $row->kanim?->nama_kanim ?? '-' }}</p>
                             </td>
-                            <td class="px-4 py-3.5">
+                            <td class="px-4 py-2.5">
                                 <div class="flex items-center gap-1.5">
-                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#94A3B8"
+                                    <svg class="w-3 h-3 shrink-0" fill="none" stroke="#94A3B8"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -315,23 +314,18 @@
                                         {{ $row->lokasiLayanan?->nama_lokasi ?? '-' }}</p>
                                 </div>
                             </td>
-                            <td class="px-4 py-3.5">
-                                <p class="text-sm" style="color:#374151;">
+                            <td class="px-4 py-2.5">
+                                <p class="text-xs" style="color:#374151;">
                                     {{ $row->jenisLayanan?->nama_layanan ?? '-' }}</p>
                             </td>
-                            <td class="px-4 py-3.5 text-center">
+                            <td class="px-4 py-2.5 text-center">
                                 <span
-                                    class="inline-flex items-center justify-center w-10 h-10 text-sm font-bold rounded-xl"
+                                    class="inline-flex items-center justify-center w-8 h-8 text-xs font-bold rounded-xl"
                                     style="background:#EFF6FF;color:#1E3A8A;">
                                     {{ formatAngka($row->jumlah) }}
                                 </span>
                             </td>
-                            {{-- <td class="px-4 py-3.5">
-                                <p class="text-xs font-medium" style="color:#374151;">
-                                    {{ $row->operator?->nama_lengkap ?? '(Kanwil)' }}</p>
-                                <p class="text-xs" style="color:#94a3b8;">{{ $row->operator?->nip ?? '' }}</p>
-                            </td> --}}
-                            <td class="px-4 py-3.5 text-center">
+                            <td class="px-4 py-2.5 text-center">
                                 @php
                                     $stStyle = match ($row->status) {
                                         'terverifikasi' => 'background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;',
@@ -347,19 +341,19 @@
                                     };
                                 @endphp
                                 <span
-                                    style="display:inline-block;padding:0.25rem 0.625rem;border-radius:9999px;font-size:0.6875rem;font-weight:600;white-space:nowrap;{{ $stStyle }}">
+                                    style="display:inline-block;padding:0.2rem 0.625rem;border-radius:9999px;font-size:0.625rem;font-weight:600;white-space:nowrap;{{ $stStyle }}">
                                     {{ $stLabel }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3.5 text-center">
+                            <td class="px-4 py-2.5 text-center">
                                 <div class="flex items-center justify-center gap-1.5">
                                     {{-- Lihat --}}
                                     <button wire:click="viewDetail({{ $row->id }})" title="Lihat Detail"
-                                        class="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all cursor-pointer"
+                                        class="inline-flex items-center justify-center w-7 h-7 rounded-lg transition-all cursor-pointer"
                                         style="background:#EFF6FF;color:#1E3A8A;"
                                         onmouseover="this.style.background='#1e3a8a';this.querySelector('svg').style.color='white'"
                                         onmouseout="this.style.background='#EFF6FF';this.querySelector('svg').style.color='#1E3A8A'">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -370,37 +364,37 @@
                                     {{-- Edit --}}
                                     @if (in_array(auth()->user()->role, ['superadmin', 'admin_kabid_doklan', 'admin_kanwil_doklan']))
                                         <button wire:click="openEdit({{ $row->id }})" title="Edit"
-                                            class="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all cursor-pointer"
+                                            class="inline-flex items-center justify-center w-7 h-7 rounded-lg transition-all cursor-pointer"
                                             style="background:#fffbeb;color:#d97706;"
                                             onmouseover="this.style.background='#d97706';this.querySelector('svg').style.color='white'"
                                             onmouseout="this.style.background='#fffbeb';this.querySelector('svg').style.color='#d97706'">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
                                         </button>
                                     @endif
-                                    {{-- Verifikasi & Tolak (kabid only) --}}
+                                    {{-- Verifikasi & Tolak --}}
                                     @if (in_array(auth()->user()->role, ['superadmin', 'admin_kabid_doklan']) && $row->status === 'disubmit')
                                         <button wire:click="openVerif({{ $row->id }}, 'terverifikasi')"
                                             title="Verifikasi"
-                                            class="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all cursor-pointer"
+                                            class="inline-flex items-center justify-center w-7 h-7 rounded-lg transition-all cursor-pointer"
                                             style="background:#f0fdf4;color:#16a34a;"
                                             onmouseover="this.style.background='#16a34a';this.querySelector('svg').style.color='white'"
                                             onmouseout="this.style.background='#f0fdf4';this.querySelector('svg').style.color='#16a34a'">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24" stroke-width="2.5">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M5 13l4 4L19 7" />
                                             </svg>
                                         </button>
                                         <button wire:click="openVerif({{ $row->id }}, 'ditolak')" title="Tolak"
-                                            class="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all cursor-pointer"
+                                            class="inline-flex items-center justify-center w-7 h-7 rounded-lg transition-all cursor-pointer"
                                             style="background:#fef2f2;color:#dc2626;"
                                             onmouseover="this.style.background='#dc2626';this.querySelector('svg').style.color='white'"
                                             onmouseout="this.style.background='#fef2f2';this.querySelector('svg').style.color='#dc2626'">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24" stroke-width="2.5">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M6 18L18 6M6 6l12 12" />
@@ -421,7 +415,7 @@
                                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
                                     </div>
-                                    <p class="text-sm font-medium" style="color:#94A3B8;">Tidak ada data</p>
+                                    <p class="text-xs font-medium" style="color:#94A3B8;">Tidak ada data</p>
                                     <p class="text-xs" style="color:#CBD5E1;">Coba ubah filter atau tambah data baru
                                     </p>
                                 </div>

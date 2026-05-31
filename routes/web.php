@@ -93,6 +93,8 @@ Route::middleware('auth')->group(function () {
                     ->name('doklan.paspor.export.excel');
                 Route::get('/doklan/paspor/export/pdf', [KanwilPasporPdfController::class, 'export'])
                     ->name('doklan.paspor.export.pdf');
+                
+               
             });
     });
 
@@ -116,6 +118,18 @@ Route::middleware('auth')->group(function () {
             Route::get('/doklan/paspor/export', fn() => view('operator.doklan.paspor.export-wrapper'))->name('doklan.paspor.export');
             Route::get('/doklan/paspor/export/excel', [LayananPasporExcelController::class, 'export'])->name('doklan.paspor.export.excel');
             Route::get('/doklan/paspor/export/pdf', [LayananPasporPdfController::class, 'export'])->name('doklan.paspor.export.pdf');
+
+            // Izin Tinggal
+            Route::get('/doklan/izin-tinggal', fn() => view('operator.doklan.izin-tinggal.index'))
+                ->name('doklan.izin-tinggal.index');
+            Route::get('/doklan/izin-tinggal/input', fn() => view('operator.doklan.izin-tinggal.input-wrapper'))
+                ->name('doklan.izin-tinggal.input');
+            Route::get('/doklan/izin-tinggal/wna', fn() => view('operator.doklan.izin-tinggal.wna-wrapper'))
+                ->name('doklan.izin-tinggal.wna');
+            Route::get('/doklan/izin-tinggal/{id}/edit', fn($id) => view('operator.doklan.izin-tinggal.input-wrapper', ['id' => $id]))
+                ->name('doklan.izin-tinggal.edit');
+            Route::get('/doklan/izin-tinggal/{id}', fn($id) => view('operator.doklan.izin-tinggal.detail-wrapper', ['id' => $id]))
+                ->name('doklan.izin-tinggal.detail');
         });
 
 });

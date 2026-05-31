@@ -10,6 +10,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SharedSeeder::class,
+            MasterDataSeeder::class,
+            KewarganegaraanSeeder::class,
+            JenisLayananSeeder::class,
+            
         ]);
     }
 }

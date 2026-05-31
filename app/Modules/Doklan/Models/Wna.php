@@ -16,16 +16,19 @@ class Wna extends Model
     protected $table = 'doklan_wna';
 
     protected $fillable = [
-        'kanim_id',
-        'kanwil_id',
-        'kewarganegaraan_id',
-        'nama_lengkap',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'jenis_kelamin',
-        'nomor_paspor',
-        'paspor_expire',
-        'nomor_izin_tinggal',
+            'kanim_id',
+            'kanwil_id',
+            'kewarganegaraan_id',
+            'nama_lengkap',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'jenis_kelamin',
+            'nomor_paspor',
+            'paspor_expire',
+            'nomor_izin_tinggal',
+            'jabatan',
+            'aktivitas',
+            'alamat_di_indonesia',
     ];
 
     protected $casts = [

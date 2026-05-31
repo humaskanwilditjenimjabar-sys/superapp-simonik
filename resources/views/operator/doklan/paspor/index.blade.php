@@ -327,20 +327,20 @@
                 <tbody class="divide-y divide-slate-100">
                     @forelse($data as $i => $item)
                         <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="px-4 py-3.5 text-sm" style="color:#94A3B8;">{{ $data->firstItem() + $i }}</td>
-                            <td class="px-4 py-3.5 whitespace-nowrap">
+                            <td class="px-4 py-2.5 text-xs" style="color:#94A3B8;">{{ $data->firstItem() + $i }}</td>
+                            <td class="px-4 py-2.5 whitespace-nowrap">
                                 <span class="text-xs font-medium px-2.5 py-1 rounded-full"
                                     style="background:#F8FAFC;color:#475569;border:1px solid #E2E8F0;">
                                     {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d M Y') }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3.5">
-                                <p class="text-sm font-semibold" style="color:#1E293B;">
+                            <td class="px-4 py-2.5">
+                                <p class="text-xs font-semibold" style="color:#1E293B;">
                                     {{ $item->jenisLayanan?->nama_layanan ?? '-' }}</p>
                             </td>
-                            <td class="px-4 py-3.5">
+                            <td class="px-4 py-2.5">
                                 <div class="flex items-center gap-1.5">
-                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="#94A3B8"
+                                    <svg class="w-3 h-3 shrink-0" fill="none" stroke="#94A3B8"
                                         viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -351,24 +351,23 @@
                                         {{ $item->lokasiLayanan?->nama_lokasi ?? '-' }}</p>
                                 </div>
                             </td>
-                            <td class="px-4 py-3.5 text-center">
+                            <td class="px-4 py-2.5 text-center">
                                 <span
-                                    class="inline-flex items-center justify-center w-10 h-10 text-sm font-bold rounded-xl"
+                                    class="inline-flex items-center justify-center w-8 h-8 text-xs font-bold rounded-xl"
                                     style="background:#EFF6FF;color:#1E3A8A;">
                                     {{ formatAngka($item->jumlah) }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3.5 text-xs max-w-xs truncate" style="color:#94A3B8;">
+                            <td class="px-4 py-2.5 text-xs max-w-xs truncate" style="color:#94A3B8;">
                                 {{ $item->keterangan ?? '-' }}
                             </td>
-                            <td class="px-4 py-3.5 text-center">
+                            <td class="px-4 py-2.5 text-center">
                                 <button wire:click="viewDetail({{ $item->id }})"
-                                    class="inline-flex items-center justify-center w-8 h-8 rounded-lg transition-all cursor-pointer"
+                                    class="inline-flex items-center justify-center w-7 h-7 rounded-lg transition-all cursor-pointer"
                                     style="background:#EFF6FF;color:#1E3A8A;"
                                     onmouseover="this.style.background='#DBEAFE'"
                                     onmouseout="this.style.background='#EFF6FF'">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -388,7 +387,7 @@
                                                 d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
                                     </div>
-                                    <p class="text-sm font-medium" style="color:#94A3B8;">Belum ada data layanan
+                                    <p class="text-xs font-medium" style="color:#94A3B8;">Belum ada data layanan
                                         paspor</p>
                                 </div>
                             </td>
