@@ -18,14 +18,14 @@ class LayananPaspor extends Component
     public string  $search       = '';
     public string  $filterKanim  = '';
     public string  $filterStatus = '';
-    public string  $filterLokasi = '';
+    public ?string $filterLokasi = null;
     public string  $filterDari   = '';
     public string  $filterSampai = '';
 
     // ── Sort ───────────────────────────────────────────────
     public string $sortColumn    = 'tanggal';
     public string $sortDirection = 'desc';
-    public int    $perPage       = 15;
+    public int    $perPage       = 5;
 
     // ── Modal: Form Tambah/Edit ────────────────────────────
     public bool    $showForm     = false;
@@ -70,7 +70,7 @@ class LayananPaspor extends Component
             ->byKanwil($user->kanwil_id);
 
         // Filter
-        if ($this->filterKanim)  $q->where('kanim_id', $this->filterKanim);
+        if ($this->filterKanim)  $q->where('doklan_layanan_paspor.kanim_id', $this->filterKanim);
         if ($this->filterStatus) $q->where('status', $this->filterStatus);
         if ($this->filterLokasi) $q->where('lokasi_layanan_id', $this->filterLokasi);
         if ($this->filterDari)   $q->whereDate('tanggal', '>=', $this->filterDari);
@@ -101,9 +101,15 @@ class LayananPaspor extends Component
         $this->search       = '';
         $this->filterKanim  = '';
         $this->filterStatus = '';
-        $this->filterLokasi = '';
+        $this->filterLokasi = null;
         $this->filterDari   = now()->startOfMonth()->format('Y-m-d');
         $this->filterSampai = now()->format('Y-m-d');
+        $this->resetPage();
+    }
+
+    public function setFilterLokasi(?int $id): void
+    {
+        $this->filterLokasi = $id ? (string) $id : null;
         $this->resetPage();
     }
 
@@ -260,6 +266,15 @@ class LayananPaspor extends Component
         $this->closeVerif();
     }
 
+    public function hasActiveFilter(): bool
+    {
+        return $this->filterStatus !== ''
+            || $this->search !== ''
+            || $this->filterLokasi !== null
+            || $this->filterDari !== now()->startOfMonth()->format('Y-m-d')
+            || $this->filterSampai !== now()->format('Y-m-d');
+    }
+
     // ── Render ─────────────────────────────────────────────
     public function render()
     {
@@ -283,8 +298,28 @@ class LayananPaspor extends Component
         // Data untuk modal view
         $viewData = $this->viewId ? LayananPasporModel::with(['kanim', 'lokasiLayanan', 'jenisLayanan', 'operator', 'verifiedBy'])->find($this->viewId) : null;
 
-        return view('livewire.kanwil.doklan.layanan-paspor', compact(
-            'data', 'stats', 'kanims', 'lokasis', 'jenisLayanan', 'viewData'
+        // Stats per lokasi (hanya jika kanim dipilih)
+        $statsPerLokasi = [];
+        if ($this->filterKanim) {
+            $statsPerLokasi = LayananPasporModel::byKanwil($user->kanwil_id)
+                ->where('doklan_layanan_paspor.kanim_id', $this->filterKanim)
+                ->join('lokasi_layanan', 'doklan_layanan_paspor.lokasi_layanan_id', '=', 'lokasi_layanan.id')
+                ->selectRaw('lokasi_layanan.id, lokasi_layanan.nama_lokasi as nama, SUM(jumlah) as total')
+                ->groupBy('lokasi_layanan.id', 'lokasi_layanan.nama_lokasi')
+                ->get()
+                ->map(fn($l) => ['id' => $l->id, 'nama' => $l->nama, 'total' => $l->total])
+                ->toArray();
+        }
+
+        // Sum filtered
+        $sumFiltered = (clone $this->baseQuery())->sum('jumlah');
+        // Di render() tambah:
+        $hasActiveFilter = $this->hasActiveFilter();
+
+
+        return view('kanwil.doklan.paspor.layanan-paspor', compact(
+            'data', 'stats', 'kanims', 'lokasis', 'jenisLayanan', 'viewData',
+            'statsPerLokasi', 'sumFiltered', 'hasActiveFilter'
         ));
     }
 }
