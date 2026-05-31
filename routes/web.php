@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Operator\Doklan\LayananPasporExcelController;
 use App\Http\Controllers\Operator\Doklan\LayananPasporPdfController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Kanwil\Doklan\LayananPasporExcelController as KanwilPasporExcelController;
+use App\Http\Controllers\Kanwil\Doklan\LayananPasporPdfController as KanwilPasporPdfController;
 
 // ── Root redirect ──
 Route::get('/', function () {
@@ -77,13 +79,19 @@ Route::middleware('auth')->group(function () {
     ->group(function () {
 
         Route::get('/dashboard', fn() => view('kanwil.dashboard'))->name('dashboard');
-
         // Doklan — hanya kabid & kanwil doklan
         Route::middleware('role:superadmin,admin_kabid_doklan,admin_kanwil_doklan')
             ->group(function () {
                 Route::get('/doklan/paspor', fn() => view('kanwil.doklan.paspor.index'))
                     ->name('doklan.paspor');
             });
+        Route::get('/doklan/paspor/export', fn() => view('kanwil.doklan.paspor.export-wrapper'))
+            ->name('doklan.paspor.export');
+
+        Route::get('/doklan/paspor/export/excel', [KanwilPasporExcelController::class, 'export'])
+            ->name('doklan.paspor.export.excel');
+        Route::get('/doklan/paspor/export/pdf', [KanwilPasporPdfController::class, 'export'])
+            ->name('doklan.paspor.export.pdf');
 
     });
 
