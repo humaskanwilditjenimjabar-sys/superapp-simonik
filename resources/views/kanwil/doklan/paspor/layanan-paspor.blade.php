@@ -283,7 +283,7 @@
                                 @endif
                             </span>
                         </th>
-                        <th class="px-4 py-3 text-left text-xs font-bold text-white">Operator</th>
+                        {{-- <th class="px-4 py-3 text-left text-xs font-bold text-white">Operator</th> --}}
                         <th class="px-4 py-3 text-center text-xs font-bold text-white">Status</th>
                         <th class="px-4 py-3 text-center text-xs font-bold text-white">Aksi</th>
                     </tr>
@@ -326,11 +326,11 @@
                                     {{ formatAngka($row->jumlah) }}
                                 </span>
                             </td>
-                            <td class="px-4 py-3.5">
+                            {{-- <td class="px-4 py-3.5">
                                 <p class="text-xs font-medium" style="color:#374151;">
                                     {{ $row->operator?->nama_lengkap ?? '(Kanwil)' }}</p>
                                 <p class="text-xs" style="color:#94a3b8;">{{ $row->operator?->nip ?? '' }}</p>
-                            </td>
+                            </td> --}}
                             <td class="px-4 py-3.5 text-center">
                                 @php
                                     $stStyle = match ($row->status) {

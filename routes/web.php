@@ -84,15 +84,16 @@ Route::middleware('auth')->group(function () {
             ->group(function () {
                 Route::get('/doklan/paspor', fn() => view('kanwil.doklan.paspor.index'))
                     ->name('doklan.paspor');
+                Route::get('/doklan/paspor/monitoring', fn() => view('kanwil.doklan.paspor.monitoring-wrapper'))
+                    ->name('doklan.paspor.monitoring');
+                Route::get('/doklan/paspor/export', fn() => view('kanwil.doklan.paspor.export-wrapper'))
+                    ->name('doklan.paspor.export');
+
+                Route::get('/doklan/paspor/export/excel', [KanwilPasporExcelController::class, 'export'])
+                    ->name('doklan.paspor.export.excel');
+                Route::get('/doklan/paspor/export/pdf', [KanwilPasporPdfController::class, 'export'])
+                    ->name('doklan.paspor.export.pdf');
             });
-        Route::get('/doklan/paspor/export', fn() => view('kanwil.doklan.paspor.export-wrapper'))
-            ->name('doklan.paspor.export');
-
-        Route::get('/doklan/paspor/export/excel', [KanwilPasporExcelController::class, 'export'])
-            ->name('doklan.paspor.export.excel');
-        Route::get('/doklan/paspor/export/pdf', [KanwilPasporPdfController::class, 'export'])
-            ->name('doklan.paspor.export.pdf');
-
     });
 
     // ── Panel Kanim ──

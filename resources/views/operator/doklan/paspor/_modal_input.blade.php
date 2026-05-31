@@ -38,7 +38,7 @@
                         <span style="color:#94a3b8;font-weight:400;">(hari ini atau kemarin)</span>
                     </label>
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
-                        @php
+                        {{-- @php
                             $tanggalOptions = [
                                 today()->toDateString() => [
                                     'label' => 'Hari Ini',
@@ -51,8 +51,8 @@
                                     'sudah' => $sudahInputKemarin,
                                 ],
                             ];
-                        @endphp
-                        {{-- @php
+                        @endphp --}}
+                        @php
                             $tanggalOptions = [
                                 today()->toDateString() => [
                                     'label' => 'Hari Ini',
@@ -65,7 +65,7 @@
                                     'sudah' => false,
                                 ],
                             ];
-                        @endphp --}}
+                        @endphp
                         @foreach ($tanggalOptions as $val => $opt)
                             <button type="button"
                                 @if (!$opt['sudah']) wire:click="setFormTanggal('{{ $val }}')" @endif

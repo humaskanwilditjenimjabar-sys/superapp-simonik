@@ -19,8 +19,8 @@
                 </p>
             </div>
         </div>
-        @if (!$sudahInputHariIni || !$sudahInputKemarin)
-            {{-- @if (true) --}}
+        {{-- @if (!$sudahInputHariIni || !$sudahInputKemarin) --}}
+        @if (true)
             <button wire:click="openForm"
                 class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold w-full sm:w-auto shrink-0 cursor-pointer"
                 style="background:#D4AF37;color:#1E3A8A;" onmouseover="this.style.opacity='0.9'"
@@ -43,7 +43,7 @@
     </div>
 
     {{-- Info Input Status --}}
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+    {{-- <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
         <div
             style="background:white;border-radius:0.75rem;border:1px solid #e2e8f0;padding:0.875rem 1.125rem;display:flex;align-items:center;gap:0.75rem;">
             @if ($sudahInputHariIni)
@@ -106,7 +106,7 @@
                 </div>
             @endif
         </div>
-    </div>
+    </div> --}}
 
     {{-- Lokasi Filter Cards --}}
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">

@@ -64,6 +64,12 @@
     </a>
 
     @if (in_array($role, ['admin_kabid_doklan', 'admin_kanwil_doklan']))
+        {{-- MONITORING --}}
+        <div class="sk-nav-section">MONITORING KANIM</div>
+        <a href="{{ route('kanwil.doklan.paspor.monitoring') }}" class="sk-nav-item ...">
+            Monitoring Paspor
+        </a>
+
         <div class="sk-nav-section">Layanan</div>
 
         <a href="{{ route('kanwil.doklan.paspor') }}"
