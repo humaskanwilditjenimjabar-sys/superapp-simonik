@@ -132,5 +132,37 @@ class User extends Authenticatable
     {
         return $this->nama_lengkap ?? '';
     }
+    // ── Module Access ──
+    public function moduleAccess()
+    {
+        return $this->hasMany(\App\Models\UserModuleAccess::class, 'user_id');
+    }
+
+    public function activeModules()
+    {
+        return $this->moduleAccess()
+            ->where('is_aktif', true)
+            ->with('module');
+    }
+
+    public function canAccessModule(string $moduleCode, string $minLevel = 'viewer'): bool
+    {
+        if ($this->role === 'superadmin') return true;
+
+        return \App\Core\Services\PermissionService::can($moduleCode, $minLevel);
+    }
+
+    public function getBidangUtamaAttribute(): ?string
+    {
+        if ($this->role === 'superadmin') return 'doklan';
+
+        return $this->moduleAccess()
+            ->where('is_aktif', true)
+            ->with('module')
+            ->get()
+            ->first()
+            ?->module
+            ?->bidang_code;
+    }
 
 }
